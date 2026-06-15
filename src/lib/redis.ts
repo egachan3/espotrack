@@ -12,8 +12,7 @@ export const TTL = {
 // Next.js の開発環境ではホットリロードのたびにモジュールが再評価されるため
 // グローバルオブジェクトにキャッシュして接続を使い回す
 declare global {
-  // eslint-disable-next-line no-var
-  var _redisClient: Redis | undefined;
+  var _redisClient: Redis | undefined; // グローバルシングルトン（ホットリロード対策）
 }
 
 function getClient(): Redis {

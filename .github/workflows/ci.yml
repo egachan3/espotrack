@@ -1,0 +1,43 @@
+name: CI
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  typecheck:
+    name: TypeScript 型チェック
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Node.js をセットアップ
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: 依存関係をインストール
+        run: npm ci
+
+      - name: 型チェックを実行
+        run: npx tsc --noEmit
+
+  lint:
+    name: ESLint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Node.js をセットアップ
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: 依存関係をインストール
+        run: npm ci
+
+      - name: Lint を実行
+        run: npm run lint
